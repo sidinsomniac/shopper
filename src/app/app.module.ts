@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { routingComponents, AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 
@@ -15,7 +15,6 @@ import { RouterModule } from '@angular/router';
   declarations: [
     AppComponent,
     NavbarComponent,
-    MyOrdersComponent,
     routingComponents
   ],
   imports: [
@@ -24,7 +23,8 @@ import { RouterModule } from '@angular/router';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
