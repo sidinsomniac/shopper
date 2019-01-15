@@ -10,12 +10,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { routingComponents, AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    routingComponents
+    routingComponents,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import { RouterModule } from '@angular/router';
     AngularFireAuthModule,
     RouterModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
