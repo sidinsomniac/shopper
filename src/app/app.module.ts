@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
+import {DataTableModule} from "angular-6-datatable";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -30,7 +31,8 @@ import { routingComponents, AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    CustomFormsModule
+    CustomFormsModule,
+    DataTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

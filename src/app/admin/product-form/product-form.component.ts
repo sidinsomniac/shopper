@@ -12,7 +12,7 @@ import { take } from 'rxjs/operators';
 export class ProductFormComponent implements OnInit {
 
   public categories$;
-  public product = {};
+  public product:any = [];
   public id: string;
 
   constructor(

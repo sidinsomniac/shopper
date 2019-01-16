@@ -1,6 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/product.service';
 import { Subscription } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { DatabaseSnapshot, AngularFireAction } from '@angular/fire/database';
 
 @Component({
   selector: 'app-admin-products',
@@ -9,15 +11,25 @@ import { Subscription } from 'rxjs';
 })
 export class AdminProductsComponent implements OnDestroy {
 
-  public products$;
-  public productkey = [];
+  public products: any[] = [];
+  public filteredProducts: any[];
   public subscriber: Subscription;
 
   constructor(private productService: ProductService) {
-    this.products$ = productService.getAllProducts().valueChanges();
+
     this.subscriber = productService.getAllProducts().snapshotChanges().subscribe(
-      data => this.productkey = data
+      data => {
+        data.forEach( (element,index) => {
+          this.products.push(element.payload.val());
+          this.products[index].key = element.key;
+          this.filteredProducts = this.products;
+        });
+      }
     );
+  }
+
+  filter(query: string) {
+    this.filteredProducts = (query) ? this.products.filter(product => product.title.toLowerCase().includes(query.toLowerCase())) : this.products;
   }
 
   ngOnDestroy() {
