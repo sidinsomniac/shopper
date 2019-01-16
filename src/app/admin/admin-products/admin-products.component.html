@@ -10,11 +10,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor='let p of products$ | async'>
+		<tr *ngFor='let p of products$ | async ; index as i'>
 			<td>{{p.title}}</td>
 			<td>{{p.price | currency : 'USD' : 'symbol'}}</td>
-			<td>
-				<a [routerLink]='["/admin/products/",p.title]'>Edit</a>
+			<td *ngIf='productkey.length > 0'>
+				<a [routerLink]='["/admin/products/",productkey[i].key]'>Edit</a>
 			</td>
 		</tr>
 	</tbody>

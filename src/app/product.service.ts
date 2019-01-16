@@ -13,7 +13,11 @@ export class ProductService {
   }
 
   getAll() {
-    return this.db.list('/products').valueChanges();
+    return this.db.list('/products');
+  }
+
+  getProductId(id) {
+    return this.db.object('/products/'+id).valueChanges();
   }
 
 }
