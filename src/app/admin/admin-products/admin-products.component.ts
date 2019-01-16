@@ -14,8 +14,8 @@ export class AdminProductsComponent implements OnDestroy {
   public subscriber: Subscription;
 
   constructor(private productService: ProductService) {
-    this.products$ = productService.getAll().valueChanges();
-    this.subscriber = productService.getAll().snapshotChanges().subscribe(
+    this.products$ = productService.getAllProducts().valueChanges();
+    this.subscriber = productService.getAllProducts().snapshotChanges().subscribe(
       data => this.productkey = data
     );
   }

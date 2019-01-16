@@ -12,7 +12,7 @@ export class ProductService {
     return this.db.list('/products').push(product);
   }
 
-  getAll() {
+  getAllProducts() {
     return this.db.list('/products');
   }
 
@@ -20,8 +20,12 @@ export class ProductService {
     return this.db.object('/products/'+id).valueChanges();
   }
   
-  updateProduct(productId, product) {
-    return this.db.object('/products/'+productId).update(product);
+  updateProduct(id, product) {
+    return this.db.object('/products/'+id).update(product);
+  }
+
+  deleteProduct(id) {
+    return this.db.object('/products/'+id).remove();
   }
 
 
