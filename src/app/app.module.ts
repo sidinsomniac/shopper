@@ -14,13 +14,15 @@ import {DataTableModule} from "angular-6-datatable";
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { routingComponents, AppRoutingModule } from './app-routing.module';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     routingComponents,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
