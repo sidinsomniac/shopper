@@ -18,12 +18,12 @@ export class AdminProductsComponent implements OnDestroy {
   constructor(private productService: ProductService) {
 
     this.subscriber = productService.getAllProducts().snapshotChanges().subscribe(
-      data => {
-        data.forEach( (element,index) => {
-          this.products.push(element.payload.val());
-          this.products[index].key = element.key;
-          this.filteredProducts = this.products;
+      products => {
+        products.forEach((product, index) => {
+          this.products.push(product.payload.val());
+          this.products[index].key = product.key;
         });
+        this.filteredProducts = this.products;
       }
     );
   }

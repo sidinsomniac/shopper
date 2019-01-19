@@ -1,32 +1,43 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Observable, Subscription } from 'rxjs';
 import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { ShoppingCartService } from '../shopping-cart.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnDestroy {
+export class ProductsComponent implements OnDestroy, OnInit {
 
   public products: any = [];
   public filteredProducts: any = [];
   public categories: any = [];
-  public subscriber: Subscription;
+  public subscriber1: Subscription;
+  public subscriber2: Subscription;
   public selectedCategory: string;
+  public cart: {};
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private shoppingCartService: ShoppingCartService
   ) {
-    productService.getAllProducts().valueChanges().pipe(
+
+
+    productService.getAllProducts().snapshotChanges().pipe(
       switchMap(
         products => {
-          this.filteredProducts = this.products = products;
+          products.forEach((product, index) => {
+            this.products.push(product.payload.val());
+            this.products[index].key = product.payload.key;
+          })
+          this.filteredProducts = this.products;
+
           return route.queryParamMap;
         }
       )).subscribe(params => {
@@ -36,13 +47,20 @@ export class ProductsComponent implements OnDestroy {
           this.products.filter(product => product.category === this.selectedCategory) : this.products;
       })
 
-    this.subscriber = categoryService.getAll().subscribe(
+    this.subscriber1 = categoryService.getAll().subscribe(
       data => this.categories = data
     );
   }
 
+  async ngOnInit() {
+    this.subscriber2 = (await this.shoppingCartService.getCart()).subscribe(
+      cart => this.cart = cart
+    );
+  }
+
   ngOnDestroy() {
-    this.subscriber.unsubscribe;
+    this.subscriber1.unsubscribe;
+    this.subscriber2.unsubscribe;
   }
 
 }
