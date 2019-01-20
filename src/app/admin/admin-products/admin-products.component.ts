@@ -3,6 +3,7 @@ import { ProductService } from 'src/app/product.service';
 import { Subscription } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DatabaseSnapshot, AngularFireAction } from '@angular/fire/database';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-admin-products',
@@ -12,7 +13,7 @@ import { DatabaseSnapshot, AngularFireAction } from '@angular/fire/database';
 export class AdminProductsComponent implements OnDestroy {
 
   public products: any[] = [];
-  public filteredProducts: any[];
+  public filteredProducts: Product[];
   public subscriber: Subscription;
 
   constructor(private productService: ProductService) {

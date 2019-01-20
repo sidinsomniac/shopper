@@ -5,6 +5,7 @@ import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ShoppingCartService } from '../shopping-cart.service';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-products',
@@ -14,7 +15,7 @@ import { ShoppingCartService } from '../shopping-cart.service';
 export class ProductsComponent implements OnDestroy, OnInit {
 
   public products: any = [];
-  public filteredProducts: any = [];
+  public filteredProducts: Product[] = [];
   public categories: any = [];
   public subscriber1: Subscription;
   public subscriber2: Subscription;
