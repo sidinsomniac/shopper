@@ -16,9 +16,8 @@ export class ProductsComponent implements OnDestroy, OnInit {
 
   public products: any = [];
   public filteredProducts: Product[] = [];
-  public categories: any = [];
-  public subscriber1: Subscription;
-  public subscriber2: Subscription;
+  public categories$: Observable<any>;
+  public subscriber: Subscription;
   public selectedCategory: string;
   public cart: {};
 
@@ -27,10 +26,23 @@ export class ProductsComponent implements OnDestroy, OnInit {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private shoppingCartService: ShoppingCartService
-  ) {
+  ) { }
 
+  async ngOnInit() {
+    this.subscriber = (await this.shoppingCartService.getCart()).subscribe(
+      cart => this.cart = cart
+    );
+    this.populateProducts();
+    this.categories$ = this.categoryService.getAll();
+  }
 
-    productService.getAllProducts().snapshotChanges().pipe(
+  private applyFilter() {
+    this.filteredProducts = (this.selectedCategory) ?
+      this.products.filter(product => product.category === this.selectedCategory) : this.products;
+  }
+
+  private populateProducts() {
+    this.productService.getAllProducts().snapshotChanges().pipe(
       switchMap(
         products => {
           products.forEach((product, index) => {
@@ -39,29 +51,17 @@ export class ProductsComponent implements OnDestroy, OnInit {
           })
           this.filteredProducts = this.products;
 
-          return route.queryParamMap;
+          return this.route.queryParamMap;
         }
       )).subscribe(params => {
         this.selectedCategory = params.get('category');
 
-        this.filteredProducts = (this.selectedCategory) ?
-          this.products.filter(product => product.category === this.selectedCategory) : this.products;
+        this.applyFilter();
       })
-
-    this.subscriber1 = categoryService.getAll().subscribe(
-      data => this.categories = data
-    );
-  }
-
-  async ngOnInit() {
-    this.subscriber2 = (await this.shoppingCartService.getCart()).subscribe(
-      cart => this.cart = cart
-    );
   }
 
   ngOnDestroy() {
-    this.subscriber1.unsubscribe;
-    this.subscriber2.unsubscribe;
+    this.subscriber.unsubscribe;
   }
 
 }

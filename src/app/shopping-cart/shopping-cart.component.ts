@@ -8,12 +8,16 @@ import { ShoppingCartService } from '../shopping-cart.service';
 })
 export class ShoppingCartComponent implements OnInit {
 
-carts$;
+  carts$;
 
   constructor(private shoppingCartService: ShoppingCartService) { }
 
   async ngOnInit() {
     this.carts$ = await this.shoppingCartService.getCart();
+  }
+
+  clearCart(cart) {
+    this.shoppingCartService.clearCart(cart);
   }
 
 }

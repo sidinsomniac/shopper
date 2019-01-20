@@ -5,10 +5,12 @@
         <a class="list-group-item list-group-item-action" [class.active]='!selectedCategory' routerLink='/'>
           All Categories
         </a>
-        <a class="list-group-item list-group-item-action" *ngFor='let category of categories' routerLink='/'
-          [queryParams]='{category: category.payload.key}' [class.active]='selectedCategory === category.payload.key'>
-          {{category.payload.val().name}}
-        </a>
+        <ng-container *ngIf='categories$ | async as categories'>
+          <a class="list-group-item list-group-item-action" *ngFor='let category of categories' routerLink='/'
+            [queryParams]='{category: category.payload.key}' [class.active]='selectedCategory === category.payload.key'>
+            {{category.payload.val().name}}
+          </a>
+        </ng-container>
       </div>
     </div>
   </div>
