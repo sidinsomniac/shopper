@@ -16,6 +16,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { routingComponents, AppRoutingModule } from './app-routing.module';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     routingComponents,
     ProductFormComponent,
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent
   ],
   imports: [
     BrowserModule,
