@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <div class="container">
-    <a class="navbar-brand" routerLink='/'>Shopper</a>
+    <a class="navbar-brand text-primary" routerLink='/'>The <i class="fa fa-laptop fa-2x"></i>echShop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapsed()">
       <span class="navbar-toggler-icon"></span>
@@ -10,13 +10,15 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/shopping-cart">
-            Shopping Cart
+            <i class="fa fa-cart-arrow-down fa-2x text-success"></i>
             <span class="badge badge-warning badge-pill" *ngIf='cart$ | async as cart'>{{cart.totalItemsCount}}</span>
           </a>
         </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
         <ng-template #anonymousUser>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
+            <a class="nav-link" routerLink="/login"><i class="fa fa-user mr-2"></i>Login</a>
           </li>
         </ng-template>
         <li ngbDropdown class="nav-item dropdown" *ngIf='appUser ; else anonymousUser'>
